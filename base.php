@@ -151,3 +151,4 @@ function q($sql){
 
 $Total=new DB('total');
 $Bottom=new DB("bottom");
+$Title=new DB("title");
