@@ -139,8 +139,11 @@ function dd($array){
     echo "</pre>";
 }
 
+function to($url){
+ header("location:".$url);
+}
 
-$total=new DB('total');
-
-//dd($total->find(['id'=>1]));
-echo $total->min('id');
+function q($sql){
+    $pdo=new PDO("mysql:host=localhost;charset=utf8;dbname=db77");
+    return $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+}
