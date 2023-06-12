@@ -144,6 +144,6 @@ function to($url){
 }
 
 function q($sql){
-    $pdo=new PDO("mysql:host=localhost;charset=utf8;dbname=db77");
+    $pdo=new PDO("mysql:host=localhost;charset=utf8;dbname=db77",'root','');
     return $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 }
