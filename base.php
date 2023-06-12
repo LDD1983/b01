@@ -53,7 +53,7 @@ class DB{
 
         return $this->pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
     }
-    
+
     function save($arg){
         if(isset($arg['id'])){
             //update
@@ -91,14 +91,45 @@ class DB{
     }
 
     function count(...$arg){
-
+        $result=$this->all(...$arg);
+        return count($result);
     }
 
-    function math($math,$cols,...$arg){
-
+    function sum($col,...$arg){
+        return $this->math('sum',$col,...$arg);
+    }
+    function max($col,...$arg){
+        return $this->math('max',$col,...$arg);
+    }
+    function min($col,...$arg){
+        return $this->math('min',$col,...$arg);
+    }
+    function avg($col,...$arg){
+        return $this->math('avg',$col,...$arg);
     }
 
+    function math($math,$col,...$arg){
+        $sql="select $math($col) from $this->table ";
 
+        if(!empty($arg)){
+            if(is_array($arg[0])){
+
+                foreach($arg[0] as $key => $value){
+                    $tmp[]="`$key`='$value'";
+                }
+
+                $sql=$sql . " where " . join(" && " ,$tmp);
+            }else{
+                $sql=$sql . $arg[0];
+            }
+
+            if(isset($arg[1])){
+                $sql=$sql . $arg[1];
+            }
+        }
+
+        return $this->pdo->query($sql)->fetchColumn();
+    }
 
 }
 
@@ -111,4 +142,5 @@ function dd($array){
 
 $total=new DB('total');
 
-dd($total->find(['id'=>1]));
+//dd($total->find(['id'=>1]));
+echo $total->min('id');
