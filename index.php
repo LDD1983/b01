@@ -35,7 +35,6 @@
 				</div>
 			</div>
 			<?php
-			
 			$do=$_GET['do']??'main'; //使用三元運算式來取得網址的GET參數
 
 			$file="./front/".$do.".php"; //建立檔案路徑及檔名
